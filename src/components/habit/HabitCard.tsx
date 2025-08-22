@@ -30,7 +30,6 @@ export default function HabitCard({ goal }: Props) {
 
   return (
     <div className="p-4 rounded border border-zinc-200 bg-white hover:shadow-sm transition space-y-3">
-      {/* بخش بالایی: عنوان و دکمه‌ها */}
       <div className="flex justify-between items-start">
         {isEditing ? (
           <input
@@ -82,7 +81,6 @@ export default function HabitCard({ goal }: Props) {
         </div>
       </div>
 
-      {/* نوار پیشرفت */}
       <div className="space-y-1">
         <div className="w-full bg-zinc-200 rounded h-2 overflow-hidden">
           <div

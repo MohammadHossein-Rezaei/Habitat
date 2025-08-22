@@ -31,23 +31,23 @@ export default function GoalDetails() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto mt-10">
-      <h1 className="text-2xl font-semibold text-zinc-800 mb-2">
-        {goal.title}
-      </h1>
-      {goal.description && (
-        <p className="text-zinc-600 text-sm mb-6">{goal.description}</p>
-      )}
-      <div className="mt-4">
-        <h3 className="text-sm text-zinc-500 font-medium mb-1">Description</h3>
+    <div className="max-w-2xl mx-auto mt-10 space-y-6 text-zinc-800">
+      <div>
+        <h1 className="text-2xl font-semibold">{goal.title}</h1>
+        {goal.description && (
+          <p className="text-sm text-zinc-500 mt-1">{goal.description}</p>
+        )}
+      </div>
 
+      <div>
+        <h3 className="text-sm font-medium text-zinc-600 mb-1">Description</h3>
         {editingDescId === goal.id ? (
-          <div className="space-y-2">
+          <div className="space-y-3">
             <textarea
               value={editedDescription}
               onChange={(e) => setEditedDescription(e.target.value)}
-              rows={3}
-              className="w-full border border-zinc-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-500"
+              rows={4}
+              className="w-full text-sm px-3 py-2 border border-zinc-300 rounded focus:outline-none focus:ring-2 focus:ring-zinc-500 bg-white"
             />
             <div className="flex gap-2">
               <button
@@ -59,21 +59,21 @@ export default function GoalDetails() {
                   updateGoal(updatedGoal);
                   setEditingDescId(null);
                 }}
-                className="text-sm bg-zinc-800 text-white px-3 py-1 rounded hover:bg-zinc-700"
+                className="px-4 py-1.5 text-sm rounded bg-zinc-800 text-white hover:bg-zinc-700"
               >
                 Save
               </button>
               <button
                 onClick={() => setEditingDescId(null)}
-                className="text-sm text-zinc-500 hover:text-zinc-700"
+                className="px-4 py-1.5 text-sm text-zinc-500 hover:text-zinc-700"
               >
                 Cancel
               </button>
             </div>
           </div>
         ) : (
-          <div className="flex justify-between items-start">
-            <p className="text-zinc-700 text-sm whitespace-pre-wrap">
+          <div className="flex justify-between items-start bg-zinc-50 p-3 rounded border border-zinc-200">
+            <p className="text-sm text-zinc-700 whitespace-pre-wrap">
               {goal.description || "No description."}
             </p>
             <button
@@ -81,8 +81,7 @@ export default function GoalDetails() {
                 setEditedDescription(goal.description || "");
                 setEditingDescId(goal.id);
               }}
-              className="text-sm text-zinc-400 hover:text-zinc-700 ml-2"
-              title="Edit Description"
+              className="text-sm text-blue-500 hover:text-blue-700 ml-4"
             >
               ✏️
             </button>
@@ -130,13 +129,13 @@ export default function GoalDetails() {
           {goal.habits.length === 0 ? (
             <p className="text-sm text-zinc-400 italic">No habits added yet.</p>
           ) : (
-            <ul className="space-y-2">
+            <ul className="space-y-3 mt-4">
               {goal.habits.map((habit) => (
                 <li
                   key={habit.id}
-                  className="flex items-center justify-between gap-2"
+                  className="flex items-center justify-between gap-4 bg-white p-3 rounded border border-zinc-200"
                 >
-                  <div className="flex items-center gap-2 flex-1">
+                  <div className="flex items-center gap-3 flex-1">
                     <input
                       type="checkbox"
                       checked={habit.completed}
@@ -168,7 +167,7 @@ export default function GoalDetails() {
                             setEditingHabitId(null);
                           }
                         }}
-                        className="border px-2 py-1 text-sm rounded"
+                        className="w-full border border-zinc-300 px-3 py-1.5 text-sm rounded focus:outline-none focus:ring-2 focus:ring-zinc-500"
                         autoFocus
                       />
                     ) : (
@@ -184,19 +183,19 @@ export default function GoalDetails() {
                     )}
                   </div>
 
-                  <div className="flex gap-1 items-center">
+                  <div className="flex gap-2 items-center">
                     <button
                       onClick={() => {
                         setEditedHabitTitle(habit.title);
                         setEditingHabitId(habit.id);
                       }}
-                      className="text-xs text-blue-500 hover:text-blue-700"
+                      className="text-sm text-blue-500 hover:text-blue-700"
                     >
                       ✏️
                     </button>
                     <button
                       onClick={() => deleteHabit(goal.id, habit.id)}
-                      className="text-xs text-red-500 hover:text-red-700"
+                      className="text-sm text-red-500 hover:text-red-700"
                     >
                       🗑
                     </button>
