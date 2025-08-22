@@ -1,24 +1,16 @@
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter } from "react-router";
 import { GoalProvider } from "./context/GoalContext";
-import Home from "./pages/Home";
-import AddGoal from "./pages/AddGoal";
-import GoalDetails from "./pages/GoalDetails";
 import Header from "./components/layout/Header";
-import Dashboard from "./pages/Dashboard";
+import Routing from "./routes/routing";
 
 function App() {
   return (
     <GoalProvider>
       <BrowserRouter>
-        <div className="min-h-screen bg-zinc-100 text-zinc-800 p-4">
+        <div className="min-h-screen bg-zinc-50 text-zinc-900 px-6 py-4 font-sans tracking-tight">
           <Header />
-          <h1 className="text-2xl font-bold">Habitat</h1>
-          <Routes>
-            <Route element={<Home />} path="/" />
-            <Route element={<AddGoal />} path="/add" />
-            <Route element={<GoalDetails />} path="/goal/:id" />
-            <Route element={<Dashboard />} path="/dashboard" />
-          </Routes>
+          <h1 className="text-3xl font-semibold mb-6">Habitat</h1>
+          <Routing />
         </div>
       </BrowserRouter>
     </GoalProvider>

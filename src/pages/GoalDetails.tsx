@@ -4,6 +4,8 @@ import { useState } from "react";
 import Button from "../components/common/Button";
 import { v4 as uuidv4 } from "uuid";
 export default function GoalDetails() {
+  const [editingDescId, setEditingDescId] = useState<string | null>(null);
+  const [editedDescription, setEditedDescription] = useState("");
   const [habitTitle, setHabitTitle] = useState("");
   const { id } = useParams<{ id: string }>();
   const [editingHabitId, setEditingHabitId] = useState<string | null>(null);
@@ -36,7 +38,57 @@ export default function GoalDetails() {
       {goal.description && (
         <p className="text-zinc-600 text-sm mb-6">{goal.description}</p>
       )}
+      <div className="mt-4">
+        <h3 className="text-sm text-zinc-500 font-medium mb-1">Description</h3>
 
+        {editingDescId === goal.id ? (
+          <div className="space-y-2">
+            <textarea
+              value={editedDescription}
+              onChange={(e) => setEditedDescription(e.target.value)}
+              rows={3}
+              className="w-full border border-zinc-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-500"
+            />
+            <div className="flex gap-2">
+              <button
+                onClick={() => {
+                  const updatedGoal = {
+                    ...goal,
+                    description: editedDescription.trim(),
+                  };
+                  updateGoal(updatedGoal);
+                  setEditingDescId(null);
+                }}
+                className="text-sm bg-zinc-800 text-white px-3 py-1 rounded hover:bg-zinc-700"
+              >
+                Save
+              </button>
+              <button
+                onClick={() => setEditingDescId(null)}
+                className="text-sm text-zinc-500 hover:text-zinc-700"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="flex justify-between items-start">
+            <p className="text-zinc-700 text-sm whitespace-pre-wrap">
+              {goal.description || "No description."}
+            </p>
+            <button
+              onClick={() => {
+                setEditedDescription(goal.description || "");
+                setEditingDescId(goal.id);
+              }}
+              className="text-sm text-zinc-400 hover:text-zinc-700 ml-2"
+              title="Edit Description"
+            >
+              ✏️
+            </button>
+          </div>
+        )}
+      </div>
       <form
         onSubmit={(e) => {
           e.preventDefault();

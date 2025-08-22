@@ -19,20 +19,21 @@ export default function Home() {
     return true;
   });
   return (
-    <div className="max-w-3xl mx-auto mt-8 space-y-6">
+    <div className="max-w-3xl mx-auto mt-10 space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-zinc-800">Your Goals</h2>
+        <h2 className="text-lg font-medium text-zinc-800 tracking-tight">
+          Your Goals
+        </h2>
         <div className="flex gap-2 items-center">
           <select
             value={filter}
             onChange={(e) => setFilter(e.target.value as any)}
-            className="border text-sm rounded px-2 py-1 bg-white"
+            className="border border-zinc-300 text-sm rounded px-3 py-1 bg-white focus:outline-none focus:ring-2 focus:ring-zinc-500"
           >
             <option value="all">All</option>
             <option value="completed">Completed</option>
             <option value="incomplete">In Progress</option>
           </select>
-
           <Link to="/add">
             <Button>+ Add Goal</Button>
           </Link>
@@ -48,7 +49,7 @@ export default function Home() {
           {filteredGoals.map((goal) => (
             <li
               key={goal.id}
-              className="p-4 bg-white rounded shadow hover:shadow-md transition border border-zinc-200"
+              className="p-4 bg-white rounded-md border border-zinc-200 hover:shadow-sm transition-shadow"
             >
               <HabitCard goal={goal} />
             </li>
