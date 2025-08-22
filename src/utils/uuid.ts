@@ -4,7 +4,7 @@ const LOCAL_KEY = "habitat_goals";
 
 export function getLocalGoals(): Goal[] {
   const raw = localStorage.getItem(LOCAL_KEY);
-  // console.log(raw);
+
   return raw ? JSON.parse(raw) : [];
 }
 

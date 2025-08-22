@@ -10,4 +10,5 @@ export type Goal = {
   title: string;
   description?: string;
   habits: Habit[];
+  deadline?: string;
 };

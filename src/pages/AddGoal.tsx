@@ -10,6 +10,7 @@ export default function AddGoal() {
   const [description, setDescription] = useState("");
   const navigate = useNavigate();
   const { addGoal } = useGoalContext();
+  const [deadline, setDeadline] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,6 +21,7 @@ export default function AddGoal() {
       title: title.trim(),
       description: description.trim(),
       habits: [],
+      deadline,
     };
 
     addGoal(newGoal);
@@ -61,6 +63,13 @@ export default function AddGoal() {
             placeholder="Optional"
           />
         </div>
+        <input
+          type="date"
+          value={deadline}
+          onChange={(e) => setDeadline(e.target.value)}
+          className="w-full border rounded px-2 py-1 text-sm"
+          placeholder="Deadline"
+        />
 
         <div className="flex justify-end">
           <Button type="submit">Save Goal</Button>

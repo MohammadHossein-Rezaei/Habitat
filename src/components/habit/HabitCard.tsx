@@ -12,6 +12,16 @@ export default function HabitCard({ goal }: Props) {
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(goal.title);
 
+  const completedCount = goal.habits.filter((h) => h.completed).length;
+  const totalCount = goal.habits.length;
+  const percent =
+    totalCount === 0 ? 0 : Math.round((completedCount / totalCount) * 100);
+  const isNearDeadline = goal.deadline
+    ? (new Date(goal.deadline).getTime() - Date.now()) /
+        (1000 * 60 * 60 * 24) <=
+      3
+    : false;
+
   const handleUpdate = () => {
     if (title.trim() === "") return;
     updateGoal({ ...goal, title: title.trim() });
@@ -38,8 +48,20 @@ export default function HabitCard({ goal }: Props) {
         >
           <h3 className="text-lg font-medium text-zinc-800">{goal.title}</h3>
           <p className="text-sm text-zinc-500">{goal.description}</p>
+          {goal.deadline && (
+            <p className="text-xs text-zinc-400  ">Deadline: {goal.deadline}</p>
+          )}
+          {isNearDeadline && (
+            <p className="text-xs text-red-500 font-medium">
+              ⏰ Deadline is near!
+            </p>
+          )}
         </Link>
       )}
+      <div className="w-full bg-zinc-200 rounded h-2">
+        <div style={{ width: `${percent}%` }}></div>
+        <p className="text-xs text-zinc-500">{percent}% completed</p>
+      </div>
 
       <div className="flex gap-2 items-center">
         <button
