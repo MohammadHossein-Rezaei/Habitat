@@ -1,7 +1,8 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext } from "react";
 
 import type { Goal } from "../types/habit";
-import { getLocalGoals, saveLocalGoals } from "../utils/uuid";
+import { saveLocalGoals } from "../utils/uuid";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 type GoalContextType = {
   goals: Goal[];
@@ -15,17 +16,7 @@ type GoalContextType = {
 const GoalContext = createContext<GoalContextType | undefined>(undefined);
 
 export const GoalProvider = ({ children }: { children: React.ReactNode }) => {
-  const [goals, setGoals] = useState<Goal[]>([]);
-
-  useEffect(() => {
-    const stored = getLocalGoals();
-    console.log("local ,", stored);
-    if (stored) setGoals(stored);
-  }, []);
-
-  useEffect(() => {
-    saveLocalGoals(goals);
-  }, [goals]);
+  const [goals, setGoals] = useLocalStorage<Goal[]>("habitat_goals", []);
 
   const addGoal = (goal: Goal) => setGoals((prev) => [...prev, goal]);
   const updateGoal = (updatedGoal: Goal) => {

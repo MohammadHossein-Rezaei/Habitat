@@ -4,6 +4,7 @@ import { useGoalContext } from "../context/GoalContext";
 import Button from "../components/common/Button";
 import { v4 as uuidv4 } from "uuid";
 import type { Goal } from "../types/habit";
+import Input from "../components/common/Input";
 
 export default function AddGoal() {
   const [title, setTitle] = useState("");
@@ -25,7 +26,7 @@ export default function AddGoal() {
     };
 
     addGoal(newGoal);
-    navigate("/");
+    navigate("/", { replace: true });
   };
 
   return (
@@ -42,12 +43,11 @@ export default function AddGoal() {
           >
             Title <span className="text-red-500">*</span>
           </label>
-          <input
+          <Input
             id="title"
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:outline-none focus:ring-2 focus:ring-zinc-500 text-sm"
             placeholder="e.g. Become an early riser"
             required
           />
