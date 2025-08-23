@@ -18,7 +18,7 @@ export default function HabitList({ goal }: Props) {
     updateGoal({ ...goal, habits: updatedHabits });
   };
 
-  const deleteHabit = (goalId: string, habitId: string) => {
+  const deleteHabit = (_goalId: string, habitId: string) => {
     const updatedHabits = goal.habits.filter((h) => h.id !== habitId);
     updateGoal({ ...goal, habits: updatedHabits });
   };
